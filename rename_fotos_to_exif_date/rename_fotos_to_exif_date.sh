@@ -27,7 +27,7 @@ if [ "$source_directory" = "$target_directory" ]; then
 fi
 
 # Create the target directory if it does not exist already
-if ! mkdir -p $target_directory; then
+if ! mkdir -p "$target_directory"; then
 	echo ""
 	echo "could not create target directory $target_directory"
 	exit 1
@@ -37,9 +37,8 @@ fi
 # Flatten the directory hierarchy to 1
 # Hard link with new file name if exif date for creation time exists
 # Hard link with old file name otherwise
-find $source_directory -type f -print0 | while IFS= read -r -d '' file
+find "$source_directory" -type f -print0 | while IFS= read -r -d '' file
 do 
-	#echo $file;
 	filename=$(basename -- "$file")
 	extension="${filename##*.}"
 	
