@@ -43,6 +43,10 @@ do
 	extension="${filename##*.}"
 	
    	creation_timestamp=$(identify -format "%[EXIF:DateTime]\n" "$file" 2>/dev/null | sed 's/://g' | sed 's/ /_/')
+	if [ ! $creation_timestamp ]; then
+		creation_timestamp=$(identify -format "%[exif:DateTimeOriginal]\n" "$file" 2>/dev/null | sed 's/://g' | sed 's/ /_/')
+	fi
+	
 	if [ $creation_timestamp ]; then
 		
 		# Create a hard link with new filename
