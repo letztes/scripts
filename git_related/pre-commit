@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if test $(git diff --cached | grep CHANGEME | wc -l) != 0
+then
+	echo 'keyword "CHANGEME" detected in:'
+	git grep --line-number CHANGEME
+	echo 'Aborting commit'
+	exit 1;
+fi
+
